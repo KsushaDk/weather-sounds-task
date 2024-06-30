@@ -6,14 +6,18 @@
   "scripts": {
     "start": "npx webpack serve --config webpack.config.dev.js",
     "build": "npx webpack --config webpack.config.prod.js",
-    "build:dev": "npx webpack --config webpack.config.dev.js"
+    "build:dev": "npx webpack --config webpack.config.dev.js",
+    "test:eslint": "pnpm exec eslint ."
   },
   "author": "Kseniya Disko",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "9.6.0",
     "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.7.2",
     "css-minimizer-webpack-plugin": "4.2.2",
+    "eslint": "9.6.0",
+    "globals": "15.7.0",
     "html-webpack-plugin": "5.5.0",
     "mini-css-extract-plugin": "2.6.1",
     "sass": "1.56.1",
