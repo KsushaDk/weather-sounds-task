@@ -10,7 +10,9 @@ import summerSvg from "../../public/assets/icons/sun.svg";
 import rainSvg from "../../public/assets/icons/cloud-rain.svg";
 import winterSvg from "../../public/assets/icons/cloud-snow.svg";
 
-const data = [
+import { DataWeatherItems } from "../types/weatherTypes";
+
+const data: DataWeatherItems = [
   {
     mode: "summer",
     sound: summerSound,

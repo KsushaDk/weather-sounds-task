@@ -1,23 +1,33 @@
 import pauseSvg from "../public/assets/icons/pause.svg";
-import data from "./const/data.js";
+import data from "./const/data";
+
+import { price, totalPrice } from "./ts-tasks/ts-task-1";
+import { posts, normalizeData } from "./ts-tasks/ts-task-2";
+import { COMMENTS_URL, getData } from "./ts-tasks/ts-task-3";
 
 import "./style.scss";
 
-const containerElement = document.querySelector(".container");
-const controlsElement = document.querySelector(".container__controls");
-const volumeControl = document.getElementById("volume-control");
+import { AudioMap, ImageMap } from "./types/weatherTypes";
 
-let currentSound = null;
+const containerElement = document.querySelector(".container") as HTMLDivElement;
+const controlsElement = document.querySelector(
+  ".container__controls"
+) as HTMLDivElement;
+const volumeControl = document.getElementById(
+  "volume-control"
+) as HTMLInputElement;
+
+let currentSound: HTMLAudioElement | null = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const audioMap = {};
-  const defaultImgMap = {};
+  const audioMap: AudioMap = {};
+  const defaultImgMap: ImageMap = {};
 
   data.forEach((item) => {
     const { mode, sound, bg, svg } = item;
 
     audioMap[mode] = new Audio(sound);
-    audioMap[mode].volume = volumeControl.value;
+    audioMap[mode].volume = +volumeControl.value;
 
     const button = document.createElement("button");
     button.className = "container__controls_item";
@@ -39,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (key !== mode) {
           const buttonImg = controlsElement.querySelector(
             `[alt="${key} icon"]`
-          );
+          ) as HTMLImageElement;
           if (buttonImg) {
             buttonImg.src = defaultImgMap[key];
           }
@@ -67,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         currentSound = audioMap[mode];
         img.src = pauseSvg;
-        currentSound.play();
+        currentSound?.play();
       }
     });
   });
@@ -75,6 +85,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 volumeControl.addEventListener("input", () => {
   if (currentSound) {
-    currentSound.volume = volumeControl.value;
+    currentSound.volume = +volumeControl.value;
+  }
+});
+
+// Task 1
+console.log("totalPrice", totalPrice(price));
+
+// Task 2export
+console.log("normalizeData", normalizeData(posts));
+
+// Task 3
+getData(COMMENTS_URL).then((data) => {
+  if (data && data.length) {
+    data.forEach((comment) => {
+      console.log(`ID: ${comment.id}, Email: ${comment.email}`);
+    });
   }
 });
