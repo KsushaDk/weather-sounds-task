@@ -1,6 +1,10 @@
 import pauseSvg from "../public/assets/icons/pause.svg";
 import data from "./const/data";
 
+import { price, totalPrice } from "./ts-tasks/ts-task-1";
+import { posts, normalizeData } from "./ts-tasks/ts-task-2";
+import { COMMENTS_URL, getData } from "./ts-tasks/ts-task-3";
+
 import "./style.scss";
 
 import { AudioMap, ImageMap } from "./types/weatherTypes";
@@ -82,5 +86,20 @@ document.addEventListener("DOMContentLoaded", () => {
 volumeControl.addEventListener("input", () => {
   if (currentSound) {
     currentSound.volume = +volumeControl.value;
+  }
+});
+
+// Task 1
+console.log("totalPrice", totalPrice(price));
+
+// Task 2export
+console.log("normalizeData", normalizeData(posts));
+
+// Task 3
+getData(COMMENTS_URL).then((data) => {
+  if (data && data.length) {
+    data.forEach((comment) => {
+      console.log(`ID: ${comment.id}, Email: ${comment.email}`);
+    });
   }
 });
